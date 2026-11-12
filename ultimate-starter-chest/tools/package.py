@@ -33,11 +33,12 @@ def package():
         "hooks": compat["hooks"],
     }
     files = {
-        "horizon-native.json": (json.dumps(manifest, indent=2, sort_keys=True) + "\n").encode()
+        "horizon-native.json": (json.dumps(manifest, indent=2, sort_keys=True) + "\n").encode(),
+        "horizon-mixin.toml": manifests[0].read_bytes(),
     }
-    for path in sorted(bundle.iterdir()):
-        if path.is_file() and path.suffix in (".rs", ".toml"):
-            files[path.relative_to(ROOT).as_posix()] = path.read_bytes()
+    # Horizon expects the mixin manifest and its helper files at the bundle root.
+    for path in sorted(bundle.glob("*.rs")):
+        files[path.name] = path.read_bytes()
 
     out = ROOT / "target" / f"{mod['id']}-{mod['version']}.hnmod"
     out.parent.mkdir(parents=True, exist_ok=True)
