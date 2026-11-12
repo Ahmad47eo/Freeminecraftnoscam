@@ -38,9 +38,9 @@ jobs:
           with zipfile.ZipFile(artifact) as archive:
               names = set(archive.namelist())
               assert "horizon-native.json" in names
-              assert "mixins/starter_chest/horizon-mixin.toml" in names
-              assert "mixins/starter_chest/register.rs" in names
-              assert "mixins/starter_chest/command.rs" in names
+              assert "horizon-mixin.toml" in names
+              assert "register.rs" in names
+              assert "command.rs" in names
               manifest = json.loads(archive.read("horizon-native.json"))
               assert manifest["id"] == "starter_chest"
               assert manifest["game"] == "26.3"
