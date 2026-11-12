@@ -30,6 +30,7 @@ def package():
         "game": GAME,
         "horizon": compat["horizon_revision"],
         "mixins": compat["horizon_mixins_revision"],
+        "hooks": compat["hooks"],
     }
     files = {
         "horizon-native.json": (json.dumps(manifest, indent=2, sort_keys=True) + "\n").encode()
